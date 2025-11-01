@@ -2,9 +2,10 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { z } from "zod";
+import { createContactInquiry, getProjects, getCarbonCredits } from "./db";
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -17,12 +18,48 @@ export const appRouter = router({
     }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  contact: router({
+    submit: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(1),
+          email: z.string().email(),
+          phone: z.string().optional(),
+          company: z.string().optional(),
+          inquiryType: z.string().min(1),
+          message: z.string().min(10),
+        })
+      )
+      .mutation(async ({ input }) => {
+        try {
+          await createContactInquiry({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            company: input.company,
+            inquiryType: input.inquiryType,
+            message: input.message,
+            status: "new",
+          });
+          return { success: true };
+        } catch (error) {
+          console.error("Failed to create contact inquiry:", error);
+          throw new Error("Failed to submit inquiry");
+        }
+      }),
+  }),
+
+  projects: router({
+    list: publicProcedure.query(async () => {
+      return getProjects();
+    }),
+  }),
+
+  credits: router({
+    list: publicProcedure.query(async () => {
+      return getCarbonCredits();
+    }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;
