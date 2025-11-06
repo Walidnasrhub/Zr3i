@@ -1,167 +1,173 @@
-import React from 'react';
-import { Link } from 'wouter';
-import { useLanguage } from '@/contexts/LanguageContext';
+import React, { useEffect, useState } from 'react';
+import { translations } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { Leaf, Zap, BarChart3, Users } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from 'wouter';
+import { Leaf, Award, Sprout } from 'lucide-react';
+import type { Language } from '@/lib/i18n';
 
 export default function Home() {
-  const { t, isArabic } = useLanguage();
+  const [language, setLanguage] = useState<Language>('ar');
+  const [mounted, setMounted] = useState(false);
 
-  const services = [
-    {
-      icon: Leaf,
-      titleKey: 'home.service1.title',
-      descKey: 'home.service1.desc',
-    },
-    {
-      icon: BarChart3,
-      titleKey: 'home.service2.title',
-      descKey: 'home.service2.desc',
-    },
-    {
-      icon: Zap,
-      titleKey: 'home.service3.title',
-      descKey: 'home.service3.desc',
-    },
-  ];
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language') as Language | null;
+    if (savedLanguage && (savedLanguage === 'ar' || savedLanguage === 'en')) {
+      setLanguage(savedLanguage);
+    }
+    setMounted(true);
 
-  const impacts = [
-    { label: 'home.impact.projects', value: '25+' },
-    { label: 'home.impact.credits', value: '500K+' },
-    { label: 'home.impact.area', value: '50K+ ha' },
-    { label: 'home.impact.farmers', value: '5K+' },
-  ];
+    // Listen for language changes
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      setLanguage(customEvent.detail.language);
+    };
+
+    window.addEventListener('languageChange', handleLanguageChange);
+    return () => window.removeEventListener('languageChange', handleLanguageChange);
+  }, []);
+
+  if (!mounted) {
+    return <div className="min-h-screen" />;
+  }
+
+  const t = translations[language];
+  const dir = language === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <div className={`min-h-screen flex flex-col ${isArabic ? 'rtl' : 'ltr'}`}>
-      <Header />
-
+    <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section
-        className="relative bg-cover bg-center py-20 md:py-32 text-white"
-        style={{
-          backgroundImage: 'url(/hero-carbon-farming.jpg)',
-          backgroundBlendMode: 'overlay',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        } as React.CSSProperties}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            {t('home.hero.title')}
-          </h1>
-          <p className="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-            {t('home.hero.subtitle')}
-          </p>
-          <Link href="/landing">
-            <a>
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
-                {t('home.hero.cta')}
+      <section className="relative w-full h-96 md:h-[500px] overflow-hidden">
+        <img
+          src="/hero-date-palms.jpg"
+          alt="Date Palm Plantation"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        
+        <div className={`relative container mx-auto px-4 h-full flex flex-col justify-center ${language === 'ar' ? 'items-end' : 'items-start'}`}>
+          <div className={`max-w-2xl text-white ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {t.home.hero.headline}
+            </h1>
+            <p className="text-lg md:text-xl mb-8 opacity-90">
+              {t.home.hero.subheading}
+            </p>
+            <Link href="/contact">
+              <Button size="lg" className="bg-primary hover:bg-primary/90">
+                {t.home.hero.cta}
               </Button>
-            </a>
-          </Link>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              {t('home.services.title')}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {t('home.services.subtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service, idx) => {
-              const Icon = service.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                    <Icon className="w-8 h-8 text-green-700" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">
-                    {t(service.titleKey)}
-                  </h3>
-                  <p className="text-gray-600">
-                    {t(service.descKey)}
-                  </p>
-                </div>
-              );
-            })}
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Impact Section */}
-      <section className="py-20 bg-white">
+      {/* Features Section */}
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              {t('home.impact.title')}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {t('home.impact.subtitle')}
-            </p>
-          </div>
+          <h2 className={`text-3xl md:text-4xl font-bold mb-12 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+            {language === 'ar' ? 'لماذا Zr3i؟' : 'Why Zr3i?'}
+          </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {impacts.map((impact, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-4xl font-bold text-green-700 mb-2">
-                  {impact.value}
+          <div className={`grid md:grid-cols-3 gap-8`}>
+            {/* Feature 1: Carbon Sequestration */}
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className={`flex items-center gap-3 mb-2 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                  <Leaf className="h-6 w-6 text-green-600 flex-shrink-0" />
+                  <CardTitle>{t.home.features.carbonSequestration.title}</CardTitle>
                 </div>
-                <p className="text-gray-600">
-                  {t(impact.label)}
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  {t.home.features.carbonSequestration.description}
                 </p>
-              </div>
-            ))}
+              </CardContent>
+            </Card>
+
+            {/* Feature 2: Verified Credits */}
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className={`flex items-center gap-3 mb-2 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                  <Award className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                  <CardTitle>{t.home.features.verifiedCredits.title}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  {t.home.features.verifiedCredits.description}
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Feature 3: Restoration */}
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className={`flex items-center gap-3 mb-2 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                  <Sprout className="h-6 w-6 text-emerald-600 flex-shrink-0" />
+                  <CardTitle>{t.home.features.restoration.title}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  {t.home.features.restoration.description}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Stats Section */}
+      <section className="py-16 md:py-24 bg-primary/5">
+        <div className="container mx-auto px-4">
+          <div className={`grid md:grid-cols-4 gap-8 text-center`}>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">10,000+</div>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'أشجار نخيل مزروعة' : 'Date Palms Planted'}
+              </p>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">2,000+</div>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'طن CO2 معزول سنويًا' : 'Tonnes CO2 Sequestered'}
+              </p>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">500K+</div>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'أرصدة كربونية معتمدة' : 'Carbon Credits'}
+              </p>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">5,000+</div>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'هكتار أرض مستعادة' : 'Hectares Restored'}
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-green-700 text-white">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            {isArabic ? 'هل أنت مستعد للبدء؟' : 'Ready to Get Started?'}
+            {language === 'ar' ? 'انضم إلى ثورة الكربون' : 'Join the Carbon Revolution'}
           </h2>
-          <p className="text-lg text-green-100 mb-8 max-w-2xl mx-auto">
-            {isArabic
-              ? 'انضم إلى مئات المشاريع التي تحول الأراضي إلى أرصدة كربون موثوقة.'
-              : 'Join hundreds of projects transforming land into verified carbon credits.'}
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            {language === 'ar' 
+              ? 'استثمر في أرصدة كربونية تحدث فرقًا حقيقيًا في مكافحة تغير المناخ'
+              : 'Invest in carbon credits that make a real difference in fighting climate change'}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/landing">
-              <a>
-                <Button size="lg" className="bg-white text-green-700 hover:bg-gray-100">
-                  {isArabic ? 'احسب الإمكانات' : 'Calculate Potential'}
-                </Button>
-              </a>
-            </Link>
-            <Link href="/contact">
-              <a>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-green-600"
-                >
-                  {t('nav.contact')}
-                </Button>
-              </a>
-            </Link>
-          </div>
+          <Link href="/contact">
+            <Button size="lg" className="bg-primary hover:bg-primary/90">
+              {language === 'ar' ? 'استكشف مشاريعنا' : 'Explore Our Projects'}
+            </Button>
+          </Link>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

@@ -1,0 +1,179 @@
+// Bilingual content and utilities for Arabic/English support
+
+export type Language = 'ar' | 'en';
+
+export const translations = {
+  ar: {
+    // Navigation
+    nav: {
+      home: 'الرئيسية',
+      services: 'الخدمات',
+      about: 'عن الشركة',
+      technology: 'التكنولوجيا',
+      impact: 'التأثير',
+      contact: 'اتصل بنا',
+    },
+    // Home Page
+    home: {
+      title: 'Zr3i - عزل الكربون من أجل مستقبل مستدام',
+      hero: {
+        headline: 'حول الصحاري إلى مصارف الكربون',
+        subheading: 'استفد من قوة أشجار النخيل لمكافحة تغير المناخ وإنتاج أرصدة كربونية معتمدة',
+        cta: 'ابدأ الآن',
+      },
+      features: {
+        carbonSequestration: {
+          title: 'عزل الكربون',
+          description: 'كل شجرة نخيل ناضجة تعزل 200 كجم من ثاني أكسيد الكربون سنويًا',
+        },
+        verifiedCredits: {
+          title: 'أرصدة الكربون المعتمدة',
+          description: 'مشاريعنا معتمدة بموجب معايير دولية (VCS، Gold Standard)',
+        },
+        restoration: {
+          title: 'استعادة البيئة',
+          description: 'مكافحة التصحر واستعادة التنوع البيولوجي في المناطق القاحلة',
+        },
+      },
+    },
+    // Services Page
+    services: {
+      title: 'خدماتنا',
+      carbonSequestration: {
+        title: 'مشاريع عزل الكربون',
+        description: 'نحن نطور وندير مزارع نخيل كبيرة الحجم مصممة خصيصًا لأقصى عزل للكربون',
+      },
+      carbonCredits: {
+        title: 'توليد أرصدة الكربون والتحقق منها',
+        description: 'تولد مشاريعنا أرصدة كربونية معتمدة بموجب معايير دولية',
+      },
+      trading: {
+        title: 'تداول أرصدة الكربون والاستثمار',
+        description: 'احصل على أرصدة كربونية عالية الجودة من مشاريعنا المعتمدة',
+      },
+      restoration: {
+        title: 'استعادة البيئة',
+        description: 'استعادة الأراضي المتدهورة ومنع التصحر',
+      },
+    },
+    // About Page
+    about: {
+      title: 'حول Zr3i',
+      mission: 'مهمتنا هي مكافحة تغير المناخ من خلال مشاريع عزل الكربون المبتكرة',
+      vision: 'عالم يتم فيه تحويل الصحاري إلى نظم بيئية مزدهرة',
+    },
+    // Contact Page
+    contact: {
+      title: 'اتصل بنا',
+      form: {
+        name: 'الاسم',
+        email: 'البريد الإلكتروني',
+        phone: 'رقم الهاتف',
+        company: 'الشركة',
+        inquiryType: 'نوع الاستفسار',
+        message: 'الرسالة',
+        submit: 'إرسال',
+        success: 'تم إرسال رسالتك بنجاح',
+        error: 'حدث خطأ، يرجى المحاولة مرة أخرى',
+      },
+    },
+  },
+  en: {
+    // Navigation
+    nav: {
+      home: 'Home',
+      services: 'Services',
+      about: 'About Us',
+      technology: 'Technology',
+      impact: 'Impact',
+      contact: 'Contact',
+    },
+    // Home Page
+    home: {
+      title: 'Zr3i - Carbon Sequestration for a Sustainable Future',
+      hero: {
+        headline: 'Transform Deserts into Carbon Sinks',
+        subheading: 'Harness the power of date palm trees to combat climate change and generate verified carbon credits',
+        cta: 'Get Started',
+      },
+      features: {
+        carbonSequestration: {
+          title: 'Carbon Sequestration',
+          description: 'Each mature date palm tree sequesters 200 kg of CO2 annually',
+        },
+        verifiedCredits: {
+          title: 'Verified Carbon Credits',
+          description: 'Our projects are certified under international standards (VCS, Gold Standard)',
+        },
+        restoration: {
+          title: 'Environmental Restoration',
+          description: 'Combat desertification and restore biodiversity in arid regions',
+        },
+      },
+    },
+    // Services Page
+    services: {
+      title: 'Our Services',
+      carbonSequestration: {
+        title: 'Carbon Sequestration Projects',
+        description: 'We develop and manage large-scale date palm plantations for maximum carbon sequestration',
+      },
+      carbonCredits: {
+        title: 'Carbon Credit Generation & Verification',
+        description: 'Our projects generate verified carbon credits certified under international standards',
+      },
+      trading: {
+        title: 'Carbon Credit Trading & Investment',
+        description: 'Access high-quality carbon credits from our verified projects',
+      },
+      restoration: {
+        title: 'Environmental Restoration',
+        description: 'Restore degraded lands and prevent desertification',
+      },
+    },
+    // About Page
+    about: {
+      title: 'About Zr3i',
+      mission: 'Our mission is to combat climate change through innovative carbon sequestration projects',
+      vision: 'A world where deserts are transformed into thriving ecosystems',
+    },
+    // Contact Page
+    contact: {
+      title: 'Contact Us',
+      form: {
+        name: 'Name',
+        email: 'Email',
+        phone: 'Phone',
+        company: 'Company',
+        inquiryType: 'Inquiry Type',
+        message: 'Message',
+        submit: 'Submit',
+        success: 'Your message has been sent successfully',
+        error: 'An error occurred, please try again',
+      },
+    },
+  },
+};
+
+export function getTranslation(lang: Language, path: string, defaultValue: string = ''): string {
+  const keys = path.split('.');
+  let value: any = translations[lang];
+  
+  for (const key of keys) {
+    if (value && typeof value === 'object' && key in value) {
+      value = value[key];
+    } else {
+      return defaultValue;
+    }
+  }
+  
+  return typeof value === 'string' ? value : defaultValue;
+}
+
+export function isRTL(lang: Language): boolean {
+  return lang === 'ar';
+}
+
+export function getDir(lang: Language): 'rtl' | 'ltr' {
+  return isRTL(lang) ? 'rtl' : 'ltr';
+}

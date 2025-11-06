@@ -1,85 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { translations } from '@/lib/i18n';
 import { Link } from 'wouter';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { Button } from '@/components/ui/button';
-import { Menu, X, Globe } from 'lucide-react';
+import type { Language } from '@/lib/i18n';
 
-export const Header: React.FC = () => {
-  const { language, setLanguage, t, isArabic } = useLanguage();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export function Header() {
+  const [language, setLanguage] = useState<Language>('ar');
+  const [mounted, setMounted] = useState(false);
 
-  const navItems = [
-    { key: 'nav.home', href: '/' },
-    { key: 'nav.services', href: '/services' },
-    { key: 'nav.about', href: '/about' },
-    { key: 'nav.technology', href: '/technology' },
-    { key: 'nav.impact', href: '/impact' },
-    { key: 'nav.contact', href: '/contact' },
-  ];
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language') as Language | null;
+    if (savedLanguage && (savedLanguage === 'ar' || savedLanguage === 'en')) {
+      setLanguage(savedLanguage);
+    }
+    setMounted(true);
+
+    // Listen for language changes
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      setLanguage(customEvent.detail.language);
+    };
+
+    window.addEventListener('languageChange', handleLanguageChange);
+    return () => window.removeEventListener('languageChange', handleLanguageChange);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between px-4">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+            <img src="/logo.png" alt="Zr3i" className="h-8 w-8" />
+            <span>Zr3i</span>
+          </Link>
+          <LanguageSwitcher />
+        </div>
+      </header>
+    );
+  }
+
+  const t = translations[language];
 
   return (
-    <header className={`bg-white shadow-sm sticky top-0 z-50 ${isArabic ? 'rtl' : 'ltr'}`}>
-      <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/">
-          <a className="flex items-center gap-2 font-bold text-xl text-green-700">
-            <div className="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center text-white text-sm">
-              Z
-            </div>
-            <span>{isArabic ? 'زرعي' : 'Zr3i'}</span>
-          </a>
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+          <img src="/logo.png" alt="Zr3i" className="h-8 w-8" />
+          <span>Zr3i</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <Link key={item.key} href={item.href}>
-              <a className="text-gray-700 hover:text-green-700 transition-colors font-medium">
-                {t(item.key)}
-              </a>
-            </Link>
-          ))}
-        </div>
+        {/* Navigation */}
+        <nav className={`hidden md:flex gap-8 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+          <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
+            {t.nav.home}
+          </Link>
+          <Link href="/services" className="text-sm font-medium hover:text-primary transition-colors">
+            {t.nav.services}
+          </Link>
+          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+            {t.nav.about}
+          </Link>
+          <Link href="/technology" className="text-sm font-medium hover:text-primary transition-colors">
+            {t.nav.technology}
+          </Link>
+          <Link href="/impact" className="text-sm font-medium hover:text-primary transition-colors">
+            {t.nav.impact}
+          </Link>
+          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">
+            {t.nav.contact}
+          </Link>
+        </nav>
 
-        {/* Right Section */}
-        <div className="flex items-center gap-4">
-          {/* Language Switcher */}
-          <button
-            onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
-            title={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
-          >
-            <Globe className="w-4 h-4" />
-            <span className="text-sm font-medium">{language.toUpperCase()}</span>
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className={`md:hidden border-t border-gray-200 bg-white ${isArabic ? 'rtl' : 'ltr'}`}>
-          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            {navItems.map((item) => (
-              <Link key={item.key} href={item.href}>
-                <a
-                  className="text-gray-700 hover:text-green-700 transition-colors font-medium block py-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t(item.key)}
-                </a>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+        {/* Language Switcher */}
+        <LanguageSwitcher />
+      </div>
     </header>
   );
-};
+}

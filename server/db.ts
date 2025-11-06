@@ -98,20 +98,8 @@ export async function getProjects() {
 export async function getProjectById(id: number) {
   const db = await getDb();
   if (!db) return undefined;
-  try {
-    const result = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
-    return result.length > 0 ? result[0] : undefined;
-  } catch (error) {
-    console.error("[Database] Failed to get project:", error);
-    return undefined;
-  }
-}
-
-export async function createContactInquiry(inquiry: InsertContactInquiry) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  const result = await db.insert(contactInquiries).values(inquiry);
-  return result;
+  const result = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
 }
 
 export async function getCarbonCredits() {
@@ -120,4 +108,15 @@ export async function getCarbonCredits() {
   return db.select().from(carbonCredits);
 }
 
-// TODO: add more feature queries here as your schema grows.
+export async function getCarbonCreditsByProjectId(projectId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(carbonCredits).where(eq(carbonCredits.projectId, projectId));
+}
+
+export async function createContactInquiry(inquiry: InsertContactInquiry) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(contactInquiries).values(inquiry);
+  return result;
+}

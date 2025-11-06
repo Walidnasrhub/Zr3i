@@ -25,7 +25,6 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// Projects table for carbon sequestration projects
 export const projects = mysqlTable("projects", {
   id: int("id").autoincrement().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
@@ -41,10 +40,6 @@ export const projects = mysqlTable("projects", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
-export type Project = typeof projects.$inferSelect;
-export type InsertProject = typeof projects.$inferInsert;
-
-// Carbon credits table
 export const carbonCredits = mysqlTable("carbonCredits", {
   id: int("id").autoincrement().primaryKey(),
   projectId: int("projectId").notNull(),
@@ -58,10 +53,6 @@ export const carbonCredits = mysqlTable("carbonCredits", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
-export type CarbonCredit = typeof carbonCredits.$inferSelect;
-export type InsertCarbonCredit = typeof carbonCredits.$inferInsert;
-
-// Contact inquiries table
 export const contactInquiries = mysqlTable("contactInquiries", {
   id: int("id").autoincrement().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
@@ -75,5 +66,9 @@ export const contactInquiries = mysqlTable("contactInquiries", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export type Project = typeof projects.$inferSelect;
+export type InsertProject = typeof projects.$inferInsert;
+export type CarbonCredit = typeof carbonCredits.$inferSelect;
+export type InsertCarbonCredit = typeof carbonCredits.$inferInsert;
 export type ContactInquiry = typeof contactInquiries.$inferSelect;
 export type InsertContactInquiry = typeof contactInquiries.$inferInsert;
