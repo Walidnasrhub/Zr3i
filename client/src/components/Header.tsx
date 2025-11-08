@@ -1,44 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { translations } from '@/lib/i18n';
 import { Link } from 'wouter';
-import type { Language } from '@/lib/i18n';
+
 
 export function Header() {
-  const [language, setLanguage] = useState<Language>('ar');
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language | null;
-    if (savedLanguage && (savedLanguage === 'ar' || savedLanguage === 'en')) {
-      setLanguage(savedLanguage);
-    }
-    setMounted(true);
-
-    // Listen for language changes
-    const handleLanguageChange = (event: Event) => {
-      const customEvent = event as CustomEvent;
-      setLanguage(customEvent.detail.language);
-    };
-
-    window.addEventListener('languageChange', handleLanguageChange);
-    return () => window.removeEventListener('languageChange', handleLanguageChange);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-            <img src="/logo.png" alt="Zr3i" className="h-8 w-8" />
-            <span>Zr3i</span>
-          </Link>
-          <LanguageSwitcher />
-        </div>
-      </header>
-    );
-  }
-
+  const { language } = useLanguage();
   const t = translations[language];
 
   return (
