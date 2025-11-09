@@ -4,7 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { TrendingUp, Users, Leaf, Award } from 'lucide-react';
 
-export function Impact() {
+export dexport default function Impact() {
   const { t, isArabic } = useLanguage();
 
   const caseStudies = [

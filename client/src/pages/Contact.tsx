@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { trpc } from '@/lib/trpc';
 import { Mail, Phone, MapPin, Loader2, CheckCircle } from 'lucide-react';
 
-export function Contact() {
+export default function Contact() {
   const { t, isArabic } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',

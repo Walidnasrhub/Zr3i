@@ -4,7 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CheckCircle, Leaf, BarChart3, Zap } from 'lucide-react';
 
-export function Services() {
+export default function Services() {
   const { t, isArabic } = useLanguage();
 
   const developerServices = [
