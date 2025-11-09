@@ -4,7 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Satellite, BarChart3, Shield, Zap, Map, Database } from 'lucide-react';
 
-export default function Technology() {
+export function Technology() {
   const { t, isArabic } = useLanguage();
 
   const features = [

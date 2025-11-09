@@ -4,7 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Users, Target, Globe, Award } from 'lucide-react';
 
-export default function About() {
+export function About() {
   const { t, isArabic } = useLanguage();
 
   const values = [

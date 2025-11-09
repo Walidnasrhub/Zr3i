@@ -5,12 +5,12 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Header } from "./components/Header";
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import About from "./pages/About";
-import Technology from "./pages/Technology";
-import Impact from "./pages/Impact";
-import Contact from "./pages/Contact";
+import { Home } from "./pages/Home";
+import { Services } from "./pages/Services";
+import { About } from "./pages/About";
+import { Technology } from "./pages/Technology";
+import { Impact } from "./pages/Impact";
+import { Contact } from "./pages/Contact";
 
 function Router() {
   return (
