@@ -3,6 +3,16 @@
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "outputDirectory": "dist/public",
+  "builds": [
+    {
+      "src": "server/_core/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/index.html",
+      "use": "@vercel/static"
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
   },
