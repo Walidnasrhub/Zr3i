@@ -19,7 +19,7 @@
       }
     },
     {
-      "src": "^/(?!api|assets).*",
+      "src": "/((?!api|assets).*)",
       "dest": "/dist/public/index.html"
     }
   ]
