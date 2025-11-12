@@ -19,8 +19,8 @@
       }
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "src": "/((?!api/|assets/).*)",
+      "dest": "/dist/public/index.html"
     }
   ]
 }
