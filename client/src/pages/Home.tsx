@@ -6,7 +6,7 @@ import { Link } from 'wouter';
 import { Leaf, Award, Sprout } from 'lucide-react';
 import type { Language } from '@/lib/i18n';
 
-export function Home() {
+export default function Home() {
   const [language, setLanguage] = useState<Language>('ar');
   const [mounted, setMounted] = useState(false);
 
