@@ -13,6 +13,10 @@
   },
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "/dist/index.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/dist/public/index.html"
     }
