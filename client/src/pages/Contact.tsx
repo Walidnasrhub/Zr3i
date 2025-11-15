@@ -90,8 +90,8 @@ export default function Contact() {
                     <Phone className="w-6 h-6 text-green-700" />
                     <h3 className="font-semibold text-gray-900">{t('contact.phone')}</h3>
                   </div>
-                  <a href="tel:+201006055320" className="text-green-700 hover:text-green-600 font-medium">
-                    +2 01006055320
+                  <a href="tel:00201006055320" className="text-green-700 hover:text-green-600 font-medium">
+                    00201006055320
                   </a>
                 </div>
 
