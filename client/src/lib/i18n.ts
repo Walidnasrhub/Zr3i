@@ -61,10 +61,14 @@ export const translations = {
       title: 'حول Zr3i',
       mission: 'مهمتنا هي مكافحة تغير المناخ من خلال مشاريع عزل الكربون المبتكرة',
       vision: 'عالم يتم فيه تحويل الصحاري إلى نظم بيئية مزدهرة',
+      description: 'Zr3i هي منصة رقمية رائدة متخصصة في الزراعة الذكية وعزل الكربون. نحن نجمع بين التكنولوجيا المتقدمة والعلم البيئي لتحويل الممارسات الزراعية التقليدية إلى حلول مستدامة.',
+      impact: 'لقد ساعدنا المزارعين على زيادة إنتاجيتهم بنسبة 10% مع تحقيق زيادة في الربحية بنسبة 20-30%.',
     },
     // Contact Page
     contact: {
       title: 'اتصل بنا',
+      email: 'info@zr3i.com',
+      phone: '00201006055320',
       form: {
         name: 'الاسم',
         email: 'البريد الإلكتروني',
@@ -75,6 +79,27 @@ export const translations = {
         submit: 'إرسال',
         success: 'تم إرسال رسالتك بنجاح',
         error: 'حدث خطأ، يرجى المحاولة مرة أخرى',
+      },
+    },
+    // Technology Page
+    technology: {
+      title: 'تكنولوجيا Zr3i',
+      description: 'منصة متقدمة تجمع بين الذكاء الاصطناعي والتعلم الآلي وأنظمة المعلومات الجغرافية',
+      features: {
+        ai: 'الذكاء الاصطناعي والتعلم الآلي',
+        gis: 'أنظمة المعلومات الجغرافية',
+        satellite: 'تحليل الصور الفضائية',
+        monitoring: 'المراقبة في الوقت الفعلي',
+      },
+    },
+    // Impact Page
+    impact: {
+      title: 'تأثيرنا',
+      description: 'نحن نعمل على تحقيق تأثير بيئي واقتصادي إيجابي',
+      stats: {
+        farmers: 'آلاف المزارعين المستفيدين',
+        yield: 'زيادة في الإنتاجية',
+        profitability: 'زيادة في الربحية',
       },
     },
   },
@@ -136,10 +161,14 @@ export const translations = {
       title: 'About Zr3i',
       mission: 'Our mission is to combat climate change through innovative carbon sequestration projects',
       vision: 'A world where deserts are transformed into thriving ecosystems',
+      description: 'Zr3i is a leading digital agriculture platform specializing in smart farming and carbon sequestration. We combine advanced technology with environmental science to transform traditional farming practices into sustainable solutions.',
+      impact: 'We have helped farmers increase their productivity by 10% while achieving profitability increases of 20-30%.',
     },
     // Contact Page
     contact: {
       title: 'Contact Us',
+      email: 'info@zr3i.com',
+      phone: '00201006055320',
       form: {
         name: 'Name',
         email: 'Email',
@@ -152,6 +181,27 @@ export const translations = {
         error: 'An error occurred, please try again',
       },
     },
+    // Technology Page
+    technology: {
+      title: 'Zr3i Technology',
+      description: 'An advanced platform combining artificial intelligence, machine learning, and geographic information systems',
+      features: {
+        ai: 'Artificial Intelligence & Machine Learning',
+        gis: 'Geographic Information Systems',
+        satellite: 'Satellite Imagery Analysis',
+        monitoring: 'Real-time Monitoring',
+      },
+    },
+    // Impact Page
+    impact: {
+      title: 'Our Impact',
+      description: 'We are committed to achieving positive environmental and economic impact',
+      stats: {
+        farmers: 'Thousands of Farmers Benefited',
+        yield: 'Increase in Productivity',
+        profitability: 'Increase in Profitability',
+      },
+    }
   },
 };
 
