@@ -28,13 +28,11 @@ function Router() {
   );
 }
 
-import { LanguageProvider } from "./contexts/LanguageContext";
-
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        <LanguageProvider>
+        
         <TooltipProvider>
           <Toaster />
           <Header />
@@ -42,7 +40,7 @@ function App() {
             <Router />
           </main>
         </TooltipProvider>
-        </LanguageProvider>
+        
       </ThemeProvider>
     </ErrorBoundary>
   );
