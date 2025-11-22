@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import { Header } from "./components/Header";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
@@ -19,7 +20,7 @@ function Router() {
       <Route path={"/services"} component={Services} />
       <Route path={"/about"} component={About} />
       <Route path={"/technology"} component={Technology} />
-      <Route path={"/impact"} component={Impact} />
+      <Route path={"/impact"} component={Contact} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
@@ -32,15 +33,15 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        
-        <TooltipProvider>
-          <Toaster />
-          <Header />
-          <main>
-            <Router />
-          </main>
-        </TooltipProvider>
-        
+        <LanguageProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Header />
+            <main>
+              <Router />
+            </main>
+          </TooltipProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
