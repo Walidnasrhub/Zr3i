@@ -13,28 +13,43 @@ export const translations = {
       impact: 'التأثير',
       contact: 'اتصل بنا',
     },
-    // Home Page
+    language: {
+      arabic: 'العربية',
+      english: 'الإنجليزية',
+    },
     home: {
       title: 'Zr3i - عزل الكربون من أجل مستقبل مستدام',
       hero: {
         headline: 'حول الصحاري إلى مصارف الكربون',
         subheading: 'استفد من قوة أشجار النخيل لمكافحة تغير المناخ وإنتاج أرصدة كربونية معتمدة',
-        cta: 'ابدأ الآن',
+        cta: 'ابدأ الآن'
       },
       features: {
         carbonSequestration: {
           title: 'عزل الكربون',
-          description: 'كل شجرة نخيل ناضجة تعزل 200 كجم من ثاني أكسيد الكربون سنويًا',
+          description: 'كل شجرة نخيل ناضجة تعزل 200 كجم من ثاني أكسيد الكربون سنويًا'
         },
         verifiedCredits: {
           title: 'أرصدة الكربون المعتمدة',
-          description: 'مشاريعنا معتمدة بموجب معايير دولية (VCS، Gold Standard)',
+          description: 'مشاريعنا معتمدة بموجب معايير دولية (VCS، Gold Standard)'
         },
         restoration: {
           title: 'استعادة البيئة',
-          description: 'مكافحة التصحر واستعادة التنوع البيولوجي في المناطق القاحلة',
-        },
+          description: 'مكافحة التصحر واستعادة التنوع البيولوجي في المناطق القاحلة'
+        }
       },
+      whyZr3i: 'لماذا Zr3i؟',
+      impactStats: {
+        planted: 'أشجار نخيل مزروعة',
+        sequestered: 'طن CO2 معزول سنويًا',
+        credits: 'أرصدة كربونية معتمدة',
+        restored: 'هكتار أرض مستعادة'
+      },
+      ctaSection: {
+        title: 'انضم إلى ثورة الكربون',
+        subtitle: 'استثمر في أرصدة كربونية تحدث فرقًا حقيقيًا في مكافحة تغير المناخ',
+        button: 'استكشف مشاريعنا'
+      }
     },
     // Services Page
     services: {
@@ -113,28 +128,43 @@ export const translations = {
       impact: 'Impact',
       contact: 'Contact',
     },
-    // Home Page
+    language: {
+      arabic: 'Arabic',
+      english: 'English',
+    },
     home: {
       title: 'Zr3i - Carbon Sequestration for a Sustainable Future',
       hero: {
         headline: 'Transform Deserts into Carbon Sinks',
         subheading: 'Harness the power of date palm trees to combat climate change and generate verified carbon credits',
-        cta: 'Get Started',
+        cta: 'Get Started'
       },
       features: {
         carbonSequestration: {
           title: 'Carbon Sequestration',
-          description: 'Each mature date palm tree sequesters 200 kg of CO2 annually',
+          description: 'Each mature date palm tree sequesters 200 kg of CO2 annually'
         },
         verifiedCredits: {
           title: 'Verified Carbon Credits',
-          description: 'Our projects are certified under international standards (VCS, Gold Standard)',
+          description: 'Our projects are certified under international standards (VCS, Gold Standard)'
         },
         restoration: {
           title: 'Environmental Restoration',
-          description: 'Combat desertification and restore biodiversity in arid regions',
-        },
+          description: 'Combat desertification and restore biodiversity in arid regions'
+        }
       },
+      whyZr3i: 'Why Zr3i?',
+      impactStats: {
+        planted: 'Date Palms Planted',
+        sequestered: 'Tonnes CO2 Sequestered',
+        credits: 'Carbon Credits',
+        restored: 'Hectares Restored'
+      },
+      ctaSection: {
+        title: 'Join the Carbon Revolution',
+        subtitle: 'Invest in carbon credits that make a real difference in fighting climate change',
+        button: 'Explore Our Projects'
+      }
     },
     // Services Page
     services: {

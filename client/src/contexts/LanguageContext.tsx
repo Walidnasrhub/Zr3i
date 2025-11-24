@@ -1,13 +1,27 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { Language, getDir } from '@/lib/i18n';
+import { createContext, useState, useEffect, useContext } from 'react';
+import { Language, getDir, translations } from '@/lib/i18n';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   dir: 'rtl' | 'ltr';
+  t: (key: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+const getTranslation = (key: string, lang: Language): string => {
+  const keys = key.split('.');
+  let result: any = translations[lang];
+  for (const k of keys) {
+    if (result && result[k] !== undefined) {
+      result = result[k];
+    } else {
+      return key; // Return the key itself if translation is missing
+    }
+  }
+  return result as string;
+};
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('ar'); // Arabic is primary
@@ -36,12 +50,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(lang);
   };
 
+  const t = (key: string) => getTranslation(key, language);
+
   if (!mounted) {
     return <>{children}</>;
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, dir: getDir(language) }}>
+    <LanguageContext.Provider value={{ language, setLanguage, dir: getDir(language), t }}>
       {children}
     </LanguageContext.Provider>
   );
@@ -49,8 +65,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within LanguageProvider');
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-}
+};

@@ -13,7 +13,7 @@ export function LanguageSwitcher() {
         onClick={() => setLanguage('ar')}
         className="min-w-12"
       >
-        العربية
+        {t('language.arabic')}
       </Button>
       <Button
         variant={language === 'en' ? 'default' : 'outline'}
@@ -21,7 +21,7 @@ export function LanguageSwitcher() {
         onClick={() => setLanguage('en')}
         className="min-w-12"
       >
-        English
+        {t('language.english')}
       </Button>
     </div>
   );

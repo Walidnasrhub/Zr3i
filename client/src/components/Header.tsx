@@ -1,12 +1,10 @@
-import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { translations } from '@/lib/i18n';
 import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 
 export function Header() {
-  const { language } = useLanguage();
-  const t = translations[language];
+  const { language, t } = useLanguage();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -20,22 +18,22 @@ export function Header() {
         {/* Navigation */}
         <nav className={`hidden md:flex gap-8 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
           <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
-            {t.nav.home}
+            {t('nav.home')}
           </Link>
           <Link href="/services" className="text-sm font-medium hover:text-primary transition-colors">
-            {t.nav.services}
+            {t('nav.services')}
           </Link>
           <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
-            {t.nav.about}
+            {t('nav.about')}
           </Link>
           <Link href="/technology" className="text-sm font-medium hover:text-primary transition-colors">
-            {t.nav.technology}
+            {t('nav.technology')}
           </Link>
           <Link href="/impact" className="text-sm font-medium hover:text-primary transition-colors">
-            {t.nav.impact}
+            {t('nav.impact')}
           </Link>
           <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">
-            {t.nav.contact}
+            {t('nav.contact')}
           </Link>
         </nav>
 
