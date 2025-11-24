@@ -14,7 +14,7 @@ const getTranslation = (key: string, lang: Language): string => {
   const keys = key.split('.');
   let result: any = translations[lang];
   for (const k of keys) {
-    if (result && result[k] !== undefined) {
+    if (result && typeof result === 'object' && k in result) {
       result = result[k];
     } else {
       return key; // Return the key itself if translation is missing
